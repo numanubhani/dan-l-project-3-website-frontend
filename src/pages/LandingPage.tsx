@@ -19,9 +19,26 @@ import { Button } from '@/components/ui-primitives';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
 
+const STANDARD_CONTACT_TIERS = [
+  { value: 500, label: '0-500' },
+  { value: 1500, label: '501-1,500' },
+  { value: 2500, label: '1,501-2,500' },
+  { value: 5000, label: '2,501-5,000' },
+  { value: 10000, label: '5,001-10,000' },
+  { value: 15000, label: '10,001-15,000' },
+  { value: 20000, label: '15,001-20,000' },
+  { value: 25000, label: '20,001-25,000' },
+  { value: 30000, label: '25,001-30,000' },
+  { value: 40000, label: '30,001-40,000' },
+  { value: 50000, label: '40,001-50,000' },
+  { value: 75000, label: '50,001-75,000' },
+  { value: 100000, label: '75,001-100,000' },
+];
+
 export default function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [contactCount, setContactCount] = useState(500);
+  const [standardContactTier, setStandardContactTier] = useState(5000); // 2,501-5,000
 
   // Pricing calculation logic (simplified for demo)
   const calculatePrice = (basePrice: number, contacts: number) => {
@@ -29,6 +46,15 @@ export default function LandingPage() {
     const multiplier = Math.ceil((contacts - 500) / 500);
     return (basePrice + (multiplier * 10)).toFixed(2);
   };
+
+  // Standard plan: base monthly price by contact tier (50% off for 12 months)
+  const standardBasePriceByTier: Record<number, number> = {
+    500: 80, 1500: 100, 2500: 120, 5000: 100, 10000: 200, 15000: 300,
+    20000: 400, 25000: 500, 30000: 600, 40000: 800, 50000: 1000,
+    75000: 630, 100000: 800,
+  };
+  const standardBasePrice = standardBasePriceByTier[standardContactTier] ?? 100;
+  const standardPromoPrice = Math.round(standardBasePrice * 0.5);
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900">
@@ -143,6 +169,146 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Logo strip – moving right to left */}
+      <section className="py-12 bg-white border-y border-gray-100 overflow-hidden" aria-label="Trusted by">
+        <p className="text-center text-xl font-medium text-gray-500 mb-8">Powering brands loved by millions</p>
+        <div className="flex animate-marquee-right-to-left w-max gap-16 px-4">
+          {[
+            'Mailchimp-Customers-Body-Armor',
+            'Mailchimp-Customers-C3-Presents',
+            'Mailchimp-Customers-Canva',
+            'Mailchimp-Customers-Gap-Inc',
+            'Mailchimp-Customers-ReMax-West-Reality',
+            'Mailchimp-Customers-Spotify',
+            'Mailchimp-Customers-Subway',
+            'Mailchimp-Customers-The-Onion',
+            'Mailchimp-Customers-University-Miami',
+            'Mailchimp-Customers-World-Central-Kitchen',
+          ].map((name) => (
+            <img
+              key={name}
+              src={`/images/${name}.avif`}
+              alt=""
+              className="h-14 w-auto object-contain flex-shrink-0 brightness-0"
+            />
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {[
+            'Mailchimp-Customers-Body-Armor',
+            'Mailchimp-Customers-C3-Presents',
+            'Mailchimp-Customers-Canva',
+            'Mailchimp-Customers-Gap-Inc',
+            'Mailchimp-Customers-ReMax-West-Reality',
+            'Mailchimp-Customers-Spotify',
+            'Mailchimp-Customers-Subway',
+            'Mailchimp-Customers-The-Onion',
+            'Mailchimp-Customers-University-Miami',
+            'Mailchimp-Customers-World-Central-Kitchen',
+          ].map((name) => (
+            <img
+              key={`${name}-dup`}
+              src={`/images/${name}.avif`}
+              alt=""
+              className="h-14 w-auto object-contain flex-shrink-0 brightness-0"
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Try our Standard plan – 50% off (after Powering brands) – centered, theme colors */}
+      <section className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-50/30 to-white">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 items-center justify-items-center">
+          {/* Left: promo copy */}
+          <div className="w-full max-w-md lg:max-w-none">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+              Try our Standard plan for <span className="underline decoration-indigo-500 decoration-2 underline-offset-2">50% off!</span>
+            </h2>
+            <p className="text-gray-600 text-base leading-relaxed mb-3">
+              Spend less to grow more with 50% off for 12 months, even if you change to our Premium or Essentials plans.
+            </p>
+            <p className="text-gray-600 text-base leading-relaxed mb-8">
+              Cancel or downgrade to our basic Free plan at any time.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4 text-base text-gray-600 mb-8 leading-relaxed">
+              <div className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-0.5" />
+                <span>Generative AI features</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-0.5" />
+                <span>Actionable insights into audience growth and conversion funnels</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-0.5" />
+                <span>Enhanced automations</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-0.5" />
+                <span>Custom-coded email templates</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-0.5" />
+                <span>Customizable Popup forms</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-0.5" />
+                <span>Personalized onboarding</span>
+              </div>
+            </div>
+            <a href="#pricing" className="inline-flex items-center gap-2 text-base font-medium text-indigo-600 hover:text-indigo-700">
+              See all plans
+              <ArrowRight className="w-5 h-5" />
+            </a>
+          </div>
+
+          {/* Right: Standard plan card with dropdown + pricing */}
+          <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden w-full max-w-md">
+            <div className="p-8 sm:p-10 relative">
+              <div className="absolute top-8 right-8 flex items-center gap-1 text-base text-gray-700 border border-gray-200 rounded-xl pl-3 pr-2 py-2 bg-white">
+                <span>$</span>
+                <select className="appearance-none bg-transparent font-medium cursor-pointer focus:outline-none border-0 p-0 pr-5 text-gray-900">
+                  <option>USD</option>
+                </select>
+                <ChevronDown className="w-4 h-4 text-gray-500 flex-shrink-0" />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-900 mb-3 pr-24 leading-tight">Standard</h3>
+              <p className="text-gray-600 text-base leading-relaxed mb-6">Send up to 900,000 emails each month.</p>
+              <div className="flex flex-wrap items-center gap-4 mb-6">
+                <label className="text-base font-medium text-gray-700">Contacts</label>
+                <select
+                  value={standardContactTier}
+                  onChange={(e) => setStandardContactTier(Number(e.target.value))}
+                  className="w-48 px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 text-base focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                >
+                  {STANDARD_CONTACT_TIERS.map((tier) => (
+                    <option key={tier.value} value={tier.value}>
+                      {tier.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <p className="text-base text-gray-500 mb-3">Save 50%</p>
+              <div className="flex flex-col gap-1 mb-2">
+                <span className="text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight">${standardPromoPrice}</span>
+                <span className="text-gray-500 text-base">/mo for 12 months</span>
+              </div>
+              <p className="sr-only">${standardPromoPrice} per month for 12 months</p>
+              <p className="text-base text-gray-500 mt-3 mb-8">
+                Then, starts at ${standardBasePrice}/month†
+              </p>
+              <Link to="/login" className="block">
+                <button className="btn-simple w-full text-base py-4">
+                  Buy Now
+                </button>
+              </Link>
+            </div>
+            <p className="px-8 pb-8 sm:px-10 sm:pb-10 text-sm text-gray-500 leading-relaxed">
+              †See <a href="#pricing" className="underline text-gray-600 hover:text-gray-900">Offer Terms</a>. Overages apply if contact or email send limit is exceeded. <a href="#pricing" className="underline text-gray-600 hover:text-gray-900">Learn More</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section id="features" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -190,6 +356,76 @@ export default function LandingPage() {
                 className="rounded-xl shadow-md mt-4 w-full h-48 object-cover"
                 referrerPolicy="no-referrer"
               />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mailchimp-style vertical timeline – line from first bullet to last bullet only, wider content */}
+      <section id="platform" className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="timeline-wrap">
+          <div className="timeline-grid">
+            {/* Vertical line: two segments so line ends exactly on each bullet (dot 1 → dot 2 → dot 3, no overflow) */}
+            <div className="timeline-line-1-2" aria-hidden />
+            <div className="timeline-line-2-3" aria-hidden />
+
+            {/* Dots – column 1, rows 1–3 */}
+            <div className="timeline-dot timeline-dot-row-1" aria-hidden />
+            <div className="timeline-dot timeline-dot-row-2" aria-hidden />
+            <div className="timeline-dot timeline-dot-row-3" aria-hidden />
+
+            {/* Section 1: text (col 2) + image (col 3) */}
+            <div className="timeline-text-1 col-start-2 row-start-1 min-w-0">
+              <h2 className="timeline-heading mb-4">One place for all your data</h2>
+              <p className="timeline-body mb-6">
+                Unify your data under one roof and use it to generate revenue. Hundreds of app and platform integrations make it easy.
+              </p>
+              <ul className="timeline-bullets">
+                {['Measure your ROI impact with advanced reporting & analytics', 'Grow your audience with popup forms and lead ads', 'Use intelligent segmentation to understand your audience', 'Boost engagement with personalized messaging'].map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="timeline-img-1 col-start-3 row-start-1 flex justify-start lg:justify-end min-w-0">
+              <div className="w-full max-w-[420px] rounded-[16px] overflow-hidden bg-gray-100" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.1)', minHeight: 240 }}>
+                <img src="/images/timeline-images/Data.avif" alt="One place for all your data" className="w-full h-auto object-cover" style={{ aspectRatio: '380/240' }} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+              </div>
+            </div>
+
+            {/* Section 2 */}
+            <div className="timeline-text-2 col-start-2 row-start-2 min-w-0">
+              <h2 className="timeline-heading mb-4">One platform for all your marketing</h2>
+              <p className="timeline-body mb-6">
+                Support your email marketing strategy with transactional messages and by connecting Sendify to your other key channels.
+              </p>
+              <ul className="timeline-bullets">
+                {['Best-in-class email marketing backed by 20+ years of experience', 'Integrations with social media, lead ads, and more', 'Dependable, intuitive transactional emails', 'Easy-to-use drag-and-drop design tools and hundreds of templates'].map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="timeline-img-2 col-start-3 row-start-2 flex justify-start lg:justify-end min-w-0">
+              <div className="w-full max-w-[420px] rounded-[16px] overflow-hidden bg-gray-100" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.1)', minHeight: 240 }}>
+                <img src="/images/timeline-images/Non-SMS.avif" alt="One platform for all your marketing" className="w-full h-auto object-cover" style={{ aspectRatio: '380/240' }} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+              </div>
+            </div>
+
+            {/* Section 3 */}
+            <div className="timeline-text-3 col-start-2 row-start-3 min-w-0">
+              <h2 className="timeline-heading mb-4">One AI-powered solution to optimize all your results</h2>
+              <p className="timeline-body mb-6">
+                Sendify keeps learning about your business—so you can optimize your marketing strategy 24/7 with AI-driven insights.
+              </p>
+              <ul className="timeline-bullets">
+                {['Quickly create content at-scale with AI', 'Marketing automations that generate revenue around the clock', 'Total visibility into your strategy to understand what works', 'Analyze your data to find new opportunities to drive results'].map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="timeline-img-3 col-start-3 row-start-3 flex justify-start lg:justify-end min-w-0">
+              <div className="w-full max-w-[420px] rounded-[16px] overflow-hidden bg-gray-100" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.1)', minHeight: 240 }}>
+                <img src="/images/timeline-images/AI.avif" alt="One AI-powered solution to optimize all your results" className="w-full h-auto object-cover" style={{ aspectRatio: '380/240' }} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+              </div>
             </div>
           </div>
         </div>
