@@ -50,13 +50,11 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="hidden md:flex items-center gap-4">
-              <Link to="/login">
-                <Button variant="ghost" className="font-medium">Log in</Button>
+              <Link to="/login" className="btn-simple">
+                Log in
               </Link>
-              <Link to="/login">
-                <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200 transition-transform hover:scale-105">
-                  Start free
-                </Button>
+              <Link to="/login" className="btn-simple">
+                Start free
               </Link>
             </div>
             <button className="md:hidden p-2 text-gray-600 hover:text-gray-900" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -79,11 +77,11 @@ export default function LandingPage() {
                 <a href="#pricing" className="block text-base font-medium text-gray-900 hover:text-indigo-600" onClick={() => setIsMenuOpen(false)}>Pricing</a>
                 <a href="#migration" className="block text-base font-medium text-gray-900 hover:text-indigo-600" onClick={() => setIsMenuOpen(false)}>Migration</a>
                 <div className="pt-4 flex flex-col gap-3">
-                  <Link to="/login" className="block w-full" onClick={() => setIsMenuOpen(false)}>
-                    <Button variant="outline" className="w-full justify-center">Log in</Button>
+                  <Link to="/login" className="btn-simple w-full" onClick={() => setIsMenuOpen(false)}>
+                    Log in
                   </Link>
-                  <Link to="/login" className="block w-full" onClick={() => setIsMenuOpen(false)}>
-                    <Button className="w-full justify-center bg-indigo-600 text-white">Start free</Button>
+                  <Link to="/login" className="btn-simple w-full" onClick={() => setIsMenuOpen(false)}>
+                    Start free
                   </Link>
                 </div>
               </div>
@@ -136,10 +134,8 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/login" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto text-lg h-12 px-8 bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-200">
-                  Start your free plan
-                </Button>
+              <Link to="/login" className="btn-simple w-full sm:w-auto text-lg h-14 px-8">
+                Start your free plan
               </Link>
               <p className="text-sm text-gray-500">No credit card | Cancel any time</p>
             </div>
@@ -479,13 +475,12 @@ function PricingCard({ title, description, price, features, isPopular, buttonTex
         {price > 0 && <p className="text-xs text-green-600 font-medium mt-2">SAVE 30% paying upfront</p>}
       </div>
       
-      <Link to="/login" className="w-full">
-        <Button 
-          className={cn("w-full mb-8", isPopular ? "bg-indigo-600 hover:bg-indigo-700" : "bg-gray-900 hover:bg-gray-800")}
-          size="lg"
+      <Link to="/login" className="w-full mb-8">
+        <button 
+          className="btn-simple w-full"
         >
           {buttonText}
-        </Button>
+        </button>
       </Link>
 
       <ul className="space-y-4 flex-1">

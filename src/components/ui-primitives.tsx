@@ -20,11 +20,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:pointer-events-none disabled:opacity-50";
     
     const variants = {
-      primary: "bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm",
-      secondary: "bg-white text-gray-900 border border-gray-200 hover:bg-gray-50 shadow-sm",
-      outline: "border border-gray-200 bg-transparent hover:bg-gray-100 text-gray-900",
-      ghost: "hover:bg-gray-100 text-gray-700 hover:text-gray-900",
-      danger: "bg-red-600 text-white hover:bg-red-700 shadow-sm",
+      primary: "bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm dark:bg-indigo-600 dark:hover:bg-indigo-700",
+      secondary: "bg-white text-gray-900 border border-gray-200 hover:bg-gray-50 shadow-sm dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:hover:bg-gray-700",
+      outline: "border border-gray-200 bg-transparent hover:bg-gray-100 text-gray-900 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-800",
+      ghost: "hover:bg-gray-100 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800",
+      danger: "bg-red-600 text-white hover:bg-red-700 shadow-sm dark:bg-red-600 dark:hover:bg-red-700",
     };
 
     const sizes = {
@@ -53,7 +53,7 @@ Button.displayName = "Button";
 
 export function Card({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("rounded-xl border border-gray-200 bg-white text-gray-900 shadow-sm", className)} {...props}>
+    <div className={cn("rounded-xl border border-gray-200 bg-white text-gray-900 shadow-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100", className)} {...props}>
       {children}
     </div>
   );
@@ -75,7 +75,7 @@ export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInp
   return (
     <input
       className={cn(
-        "flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-50",
+        "flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100 dark:placeholder:text-gray-400",
         className
       )}
       {...props}
@@ -84,5 +84,5 @@ export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInp
 }
 
 export function Label({ className, children, ...props }: React.LabelHTMLAttributes<HTMLLabelElement>) {
-  return <label className={cn("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", className)} {...props}>{children}</label>;
+  return <label className={cn("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-gray-200", className)} {...props}>{children}</label>;
 }

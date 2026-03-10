@@ -56,11 +56,11 @@ export default function Dashboard() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Good morning, Jane</h1>
-          <p className="text-gray-600">Here's how your campaigns are performing.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Good morning, Jane</h1>
+          <p className="text-gray-500 dark:text-gray-400">Here's how your campaigns are performing.</p>
         </div>
         <Link to="/campaigns/new">
-          <Button size="lg" className="w-full sm:w-auto shadow-indigo-200 shadow-lg">
+          <Button size="lg" className="w-full sm:w-auto shadow-indigo-200 dark:shadow-none shadow-lg">
             <Plus className="w-4 h-4 mr-2" />
             Create Campaign
           </Button>
@@ -154,19 +154,19 @@ export default function Dashboard() {
 
         {/* AI Suggestion & Recent */}
         <div className="space-y-6">
-          <Card className="bg-gradient-to-br from-indigo-50 to-violet-50 text-gray-900 border border-indigo-100 shadow-md">
+          <Card className="bg-gradient-to-br from-indigo-600 to-violet-600 text-white border-none shadow-lg">
             <CardContent className="pt-6">
               <div className="flex items-start gap-4">
-                <div className="p-2 bg-indigo-100 rounded-lg">
-                  <SparklesIcon className="w-5 h-5 text-indigo-600" />
+                <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
+                  <SparklesIcon className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg mb-1">AI Suggestion</h3>
-                  <p className="text-indigo-800 text-sm mb-4">
+                  <p className="text-indigo-100 text-sm mb-4">
                     Your "Weekend Sale" campaign usually performs well on Fridays. Want to draft one for tomorrow?
                   </p>
                   <Link to="/campaigns/new?goal=promotion">
-                    <Button variant="secondary" size="sm" className="w-full">
+                    <Button variant="secondary" size="sm" className="w-full text-indigo-600 border-none hover:bg-white/90">
                       Draft Campaign
                     </Button>
                   </Link>
@@ -182,17 +182,17 @@ export default function Dashboard() {
             <CardContent>
               <div className="space-y-4">
                 {[
-                  { action: 'Campaign Sent', target: 'Spring Sale', time: '2h ago', icon: SendIcon, color: 'text-green-700 bg-green-50' },
-                  { action: 'New Contact', target: 'mike@gmail.com', time: '5h ago', icon: Users, color: 'text-blue-700 bg-blue-50' },
-                  { action: 'Goal Reached', target: '$1k Revenue', time: '1d ago', icon: TrendingUp, color: 'text-amber-700 bg-amber-50' },
+                  { action: 'Campaign Sent', target: 'Spring Sale', time: '2h ago', icon: SendIcon, color: 'text-green-600 bg-green-50 dark:bg-green-900/20 dark:text-green-400' },
+                  { action: 'New Contact', target: 'mike@gmail.com', time: '5h ago', icon: Users, color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400' },
+                  { action: 'Goal Reached', target: '$1k Revenue', time: '1d ago', icon: TrendingUp, color: 'text-amber-600 bg-amber-50 dark:bg-amber-900/20 dark:text-amber-400' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <div className={cn("w-8 h-8 rounded-full flex items-center justify-center", item.color)}>
                       <item.icon className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900">{item.action}</p>
-                  <p className="text-xs text-gray-500 truncate">{item.target}</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{item.action}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{item.target}</p>
                     </div>
                     <span className="text-xs text-gray-400">{item.time}</span>
                   </div>
@@ -211,20 +211,20 @@ function StatCard({ title, value, change, icon: Icon, trend }: any) {
     <Card>
       <CardContent className="pt-6">
         <div className="flex items-center justify-between mb-4">
-          <div className="p-2 bg-gray-50 rounded-lg">
-            <Icon className="w-5 h-5 text-gray-500" />
+          <div className="p-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+            <Icon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </div>
           <div className={cn(
             "flex items-center text-xs font-medium px-2 py-1 rounded-full",
-            trend === 'up' ? "text-green-700 bg-green-50" : "text-red-700 bg-red-50"
+            trend === 'up' ? "text-green-700 bg-green-50 dark:bg-green-900/20 dark:text-green-400" : "text-red-700 bg-red-50 dark:bg-red-900/20 dark:text-red-400"
           )}>
             {trend === 'up' ? <ArrowUpRight className="w-3 h-3 mr-1" /> : null}
             {change}
           </div>
         </div>
         <div>
-          <p className="text-sm text-gray-600 font-medium">{title}</p>
-          <h3 className="text-2xl font-bold text-gray-900 mt-1">{value}</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">{title}</p>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{value}</h3>
         </div>
       </CardContent>
     </Card>

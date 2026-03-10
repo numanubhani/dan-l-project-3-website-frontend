@@ -16,3 +16,17 @@
     @apply font-sans antialiased text-gray-900 bg-white;
   }
 }
+
+@layer components {
+  .btn-simple {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-black bg-white text-black font-bold transition-all duration-200 rounded-xl;
+  }
+  .btn-simple:hover {
+    box-shadow: 0 4px 0 0 black;
+    transform: translateY(-2px);
+  }
+  .btn-simple:active {
+    box-shadow: 0 1px 0 0 black;
+    transform: translateY(1px);
+  }
+}
